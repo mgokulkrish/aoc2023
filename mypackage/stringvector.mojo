@@ -57,8 +57,8 @@ struct StringVector:
         self.size = 0
         self.resize(32)
 
-    fn __del__(owned self):
-        self.resize(0)
+    # fn __del__(owned self):
+    #     self.resize(0)
 
     fn __len__(self) -> Int:
         return self.size    
