@@ -21,7 +21,7 @@ fn get_winners(str: String) raises -> DynamicVector[Int]:
 fn get_numbers(str: String) raises -> DynamicVector[Int]:
     var ans = DynamicVector[Int]()
     var start = 0
-    let end = len(str)-1
+    var end = len(str)-1
 
     for i in range(len(str)):
         if(str[i]=="|"):
@@ -33,6 +33,9 @@ fn get_numbers(str: String) raises -> DynamicVector[Int]:
             ans.push_back(atol(numstrs[i]))
 
     return ans
+    
+
+
 
 fn main() raises:
     var f = open("id4", "r")
@@ -48,8 +51,8 @@ fn main() raises:
     var sum = 0
 
     for i in range(n):
-        let winners = get_winners(split_str[i])
-        let numbers = get_numbers(split_str[i])
+        var winners = get_winners(split_str[i])
+        var numbers = get_numbers(split_str[i])
 
         var count = 0
         for j in range(len(numbers)):
@@ -58,7 +61,11 @@ fn main() raises:
                 if(winners[k] == num):
                     count += 1
 
-        sum += (1 << (count-1))
+        for j in range(count):
+            points[i+j+1] += (points[i])
+    
+    for i in range(n):
+        sum += points[i]
         
 
     print(sum)
