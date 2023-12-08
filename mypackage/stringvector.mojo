@@ -1,9 +1,10 @@
 from memory import memcpy
+
 alias strtype = DTypePointer[DType.int8]
 
 struct StringVector:
     var size: Int
-    var capacity: Int
+    var capacity: Int   
     var data: Pointer[strtype]
 
     fn __init__(inout self):
@@ -19,7 +20,7 @@ struct StringVector:
             self.grow()
 
         let str_data = strtype.alloc(len(str)+1)
-        memcpy(str_data, str._buffer.data, len(str)+1)
+        memcpy(str_data, str._as_ptr(), len(str)+1)
         self.data.store(self.size, str_data)
         self.size += 1
 
@@ -47,7 +48,7 @@ struct StringVector:
 
         self.data.load(i).free()
         let str_data = strtype.alloc(len(str)+1)
-        memcpy(str_data, str._buffer.data, len(str)+1)
+        memcpy(str_data, str._as_ptr(), len(str)+1)
         self.data.store(i, str_data)
 
     fn length(inout self) -> Int:
